@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Stack } from "expo-router";
 import { Session } from "@supabase/supabase-js";
-import { supabase } from "../lib/supabase";
+import { supabase } from "@/lib/supabase";
 import { useRouter, useSegments } from "expo-router";
 
 export default function RootLayout() {

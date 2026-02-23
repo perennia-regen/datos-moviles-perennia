@@ -7,17 +7,17 @@ import {
   Alert,
 } from "react-native";
 import { useLocalSearchParams, useRouter, Stack, useFocusEffect } from "expo-router";
-import { getAll, getOne, update, insert, getTareasParaRecorrida } from "../../../db/operations";
-import { MapView, Polygon, Marker, PROVIDER_DEFAULT } from "../../../components/map/MapComponents";
-import { useLocation } from "../../../hooks/useLocation";
-import { parseGeometry, parseGeometryMulti, parseFeatureCollection, getCentroid } from "../../../lib/geo";
-import { LayerToggle, type LayerVisibility } from "../../../components/map/LayerToggle";
-import { ProgressBar } from "../../../components/recorrida/ProgressBar";
-import { TaskListView } from "../../../components/recorrida/TaskListView";
-import { AddTaskSheet } from "../../../components/recorrida/AddTaskSheet";
+import { getAll, getOne, update, insert, getTareasParaRecorrida } from "@/db/operations";
+import { MapView, Polygon, Marker, PROVIDER_DEFAULT } from "@/components/map/MapComponents";
+import { useLocation } from "@/hooks/useLocation";
+import { parseGeometry, parseGeometryMulti, parseFeatureCollection, getCentroid } from "@/lib/geo";
+import { LayerToggle, type LayerVisibility } from "@/components/map/LayerToggle";
+import { ProgressBar } from "@/components/recorrida/ProgressBar";
+import { TaskListView } from "@/components/recorrida/TaskListView";
+import { AddTaskSheet } from "@/components/recorrida/AddTaskSheet";
 import { randomUUID as uuid } from "expo-crypto";
-import { getTareaTipos, getTareaTipo, type TareaTipoConfig } from "../../../constants/tareas";
-import { brand, neutral, gis, components } from "../../../constants/theme";
+import { getTareaTipos, getTareaTipo, type TareaTipoConfig } from "@/constants/tareas";
+import { brand, neutral, gis, components } from "@/constants/theme";
 
 // ── Types ──
 

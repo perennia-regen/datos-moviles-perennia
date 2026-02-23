@@ -93,8 +93,7 @@
         }
       ],
       "expo-barcode-scanner",
-      "expo-sensors",
-      "expo-av"
+      "expo-sensors"
     ],
     "scheme": "perennia",
     "extra": {

@@ -1,18 +1,22 @@
-import { datosCampo } from "../lib/supabase";
+import { datosCampo } from "@/lib/supabase";
+import type { Database } from "@/types/database";
 import { getPendingSyncItems, markSynced, markSyncFailed, update, SyncErrorType } from "./operations";
 
+type DcTableName = keyof Database["datos_campo"]["Tables"];
+
 // Mapeo de tabla SQLite → tabla Supabase
-const TABLE_MAP: Record<string, string> = {
+const TABLE_MAP: Record<string, DcTableName> = {
   dc_recorrida: "dc_recorrida",
   dc_tarea: "dc_tarea",
   dc_subtarea: "dc_subtarea",
   dc_foto: "dc_foto",
 };
 
-function classifyError(error: any): { type: SyncErrorType; message: string } {
-  const msg = error?.message ?? error?.toString?.() ?? "Error desconocido";
-  const code = error?.code ?? "";
-  const status = error?.status ?? error?.statusCode ?? 0;
+function classifyError(error: unknown): { type: SyncErrorType; message: string } {
+  const err = error as Record<string, unknown>;
+  const msg = (err?.message as string) ?? String(error);
+  const code = (err?.code as string) ?? "";
+  const status = (err?.status as number) ?? (err?.statusCode as number) ?? 0;
 
   // Auth errors
   if (status === 401 || status === 403 || msg.includes("JWT") || msg.includes("token")) {
@@ -56,7 +60,7 @@ export async function syncPendingItems(
   idEstablecimiento?: string,
   onProgress?: (synced: number, total: number) => void
 ): Promise<SyncResult> {
-  const items = (await getPendingSyncItems(idEstablecimiento)) as any[];
+  const items = await getPendingSyncItems(idEstablecimiento) as { id: string; entity: string; entity_id: string; payload: string }[];
   let synced = 0;
   let failed = 0;
   let authError = false;
@@ -92,7 +96,7 @@ export async function syncPendingItems(
         await markSynced(item.id);
         synced++;
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       const classified = classifyError(e);
       console.error(`Sync exception for ${item.entity}/${item.entity_id}:`, e);
       await markSyncFailed(item.id, classified.message, classified.type);

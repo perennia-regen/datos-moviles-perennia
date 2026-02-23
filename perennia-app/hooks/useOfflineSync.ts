@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import NetInfo from "@react-native-community/netinfo";
-import { syncPendingItems, SyncResult } from "../db/sync";
-import { getPendingSyncCount, getPendingByEstablecimiento } from "../db/operations";
+import { syncPendingItems, SyncResult } from "@/db/sync";
+import { getPendingSyncCount, getPendingByEstablecimiento } from "@/db/operations";
 
 interface EstabPending {
   id_establecimiento: string;

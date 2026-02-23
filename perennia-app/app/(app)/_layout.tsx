@@ -1,6 +1,6 @@
 import { Image, StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { Stack, useRouter } from "expo-router";
-import { components } from "../../constants/theme";
+import { components } from "@/constants/theme";
 
 function HeaderLogo() {
   return (

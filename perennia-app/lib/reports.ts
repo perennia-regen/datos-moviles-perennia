@@ -1,7 +1,7 @@
 import { File, Paths } from "expo-file-system/next";
 import { isAvailableAsync, shareAsync } from "expo-sharing";
-import { getAll, getSubtareas, getTareasParaRecorrida } from "../db/operations";
-import { getTareaTipo } from "../constants/tareas";
+import { getAll, getSubtareas, getTareasParaRecorrida } from "@/db/operations";
+import { getTareaTipo } from "@/constants/tareas";
 
 interface Lote {
   id: string;

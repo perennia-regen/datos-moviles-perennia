@@ -9,12 +9,12 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useOfflineSync } from "../../hooks/useOfflineSync";
-import { getDeadItems, retryDeadItems, discardDeadItems } from "../../db/operations";
-import { supabase } from "../../lib/supabase";
-import { SyncResult } from "../../db/sync";
-import { resetDb } from "../../db/schema";
-import { brand, neutral, semantic, components } from "../../constants/theme";
+import { useOfflineSync } from "@/hooks/useOfflineSync";
+import { getDeadItems, retryDeadItems, discardDeadItems } from "@/db/operations";
+import { supabase } from "@/lib/supabase";
+import { SyncResult } from "@/db/sync";
+import { resetDb } from "@/db/schema";
+import { brand, neutral, semantic, components } from "@/constants/theme";
 
 export default function SyncScreen() {
   const router = useRouter();

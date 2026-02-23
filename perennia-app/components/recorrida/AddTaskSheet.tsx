@@ -7,8 +7,8 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import type { TareaTipoConfig } from "../../constants/tareas";
-import { brand, neutral } from "../../constants/theme";
+import type { TareaTipoConfig } from "@/constants/tareas";
+import { brand, neutral } from "@/constants/theme";
 
 interface LoteOption {
   id: string;

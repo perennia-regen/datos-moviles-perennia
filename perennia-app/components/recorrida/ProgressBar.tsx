@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { brand, neutral } from "../../constants/theme";
+import { brand, neutral } from "@/constants/theme";
 
 interface ProgressBarProps {
   completed: number;

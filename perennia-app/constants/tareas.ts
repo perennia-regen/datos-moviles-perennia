@@ -1,4 +1,4 @@
-import { getDb } from "../db/schema";
+import { getDb } from "@/db/schema";
 
 // ── Tipos ──
 

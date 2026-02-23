@@ -7,9 +7,9 @@ import {
   StyleSheet,
 } from "react-native";
 import { useRouter } from "expo-router";
-import type { TareaEstado, TareaTipoConfig } from "../../constants/tareas";
+import type { TareaEstado, TareaTipoConfig } from "@/constants/tareas";
 import { StatusBadge } from "./StatusBadge";
-import { brand, neutral } from "../../constants/theme";
+import { brand, neutral } from "@/constants/theme";
 
 interface TareaItem {
   id: string;

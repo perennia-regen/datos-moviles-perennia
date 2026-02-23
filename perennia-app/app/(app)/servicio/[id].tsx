@@ -9,17 +9,17 @@ import {
   Alert,
 } from "react-native";
 import { useLocalSearchParams, useRouter, Stack } from "expo-router";
-import { datosCampo } from "../../../lib/supabase";
-import { getAll, downloadEstablecimientoData } from "../../../db/operations";
-import { getDb } from "../../../db/schema";
-import { useEducador } from "../../../hooks/useEducador";
+import { datosCampo } from "@/lib/supabase";
+import { getAll, downloadEstablecimientoData } from "@/db/operations";
+import { getDb } from "@/db/schema";
+import { useEducador } from "@/hooks/useEducador";
 import { randomUUID as uuid } from "expo-crypto";
-import { insert, crearTareasParaRecorrida } from "../../../db/operations";
-import { generarNombreRecorrida } from "../../../constants/tareas";
-import { MapView, Polygon, PROVIDER_DEFAULT } from "../../../components/map/MapComponents";
-import { parseGeometry, getCentroid } from "../../../lib/geo";
-import { useOfflineSync } from "../../../hooks/useOfflineSync";
-import { brand, neutral, semantic, gis, components } from "../../../constants/theme";
+import { insert, crearTareasParaRecorrida } from "@/db/operations";
+import { generarNombreRecorrida } from "@/constants/tareas";
+import { MapView, Polygon, PROVIDER_DEFAULT } from "@/components/map/MapComponents";
+import { parseGeometry, getCentroid } from "@/lib/geo";
+import { useOfflineSync } from "@/hooks/useOfflineSync";
+import { brand, neutral, semantic, gis, components } from "@/constants/theme";
 
 interface Servicio {
   id_servicio: string;
@@ -90,7 +90,7 @@ export default function ServicioDetalleScreen() {
         const localRecorridas = await getAll<Recorrida>("dc_recorrida", where, params);
         setRecorridas(localRecorridas);
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error("Error loading servicio:", e);
     } finally {
       setLoading(false);
@@ -130,9 +130,9 @@ export default function ServicioDetalleScreen() {
           `${result.lotes} lotes, ${result.ambientes} ambientes, ${result.ambienteLotes} intersecciones descargados`
         );
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error("Download error:", e);
-      Alert.alert("Error", "No se pudieron descargar los datos: " + e.message);
+      Alert.alert("Error", "No se pudieron descargar los datos: " + (e instanceof Error ? e.message : String(e)));
     } finally {
       setDownloading(false);
     }

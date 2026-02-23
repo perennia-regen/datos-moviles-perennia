@@ -7,8 +7,8 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import { brand, neutral, semantic } from "../../constants/theme";
-import type { CampoConfig, Subtarea } from "../../constants/tareas";
+import { brand, neutral, semantic } from "@/constants/theme";
+import type { CampoConfig, Subtarea } from "@/constants/tareas";
 
 interface SubtareasInputProps {
   subtareas: Subtarea[];

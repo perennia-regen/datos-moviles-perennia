@@ -10,8 +10,8 @@ import {
   KeyboardAvoidingView,
   Image,
 } from "react-native";
-import { supabase } from "../../lib/supabase";
-import { brand, neutral, components } from "../../constants/theme";
+import { supabase } from "@/lib/supabase";
+import { brand, neutral, components } from "@/constants/theme";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");

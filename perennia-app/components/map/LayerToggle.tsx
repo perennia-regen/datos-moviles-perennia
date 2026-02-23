@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { layerColors } from "../../constants/theme";
+import { layerColors } from "@/constants/theme";
 
 export interface LayerVisibility {
   perimetro: boolean;

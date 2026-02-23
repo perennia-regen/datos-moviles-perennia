@@ -10,13 +10,13 @@ import {
   Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { supabase } from "../../lib/supabase";
-import { useEducador } from "../../hooks/useEducador";
-import { brand, neutral, semantic, components } from "../../constants/theme";
+import { supabase } from "@/lib/supabase";
+import { useEducador } from "@/hooks/useEducador";
+import { brand, neutral, semantic, components } from "@/constants/theme";
 
 interface Establecimiento {
   id_establecimiento: string;
-  nombre_establecimiento: string;
+  nombre_establecimiento: string | null;
   localidad: string | null;
   grupo: string | null;
 }
@@ -44,7 +44,7 @@ export default function EstablecimientosScreen() {
       const { data, error } = await query;
       if (error) throw error;
       setEstablecimientos(data ?? []);
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error("Error fetching establecimientos:", e);
       Alert.alert("Error", "No se pudieron cargar los establecimientos");
     } finally {

@@ -14,7 +14,6 @@
     "@turf/boolean-point-in-polygon": "^7.3.4",
     "@turf/helpers": "^7.3.4",
     "expo": "~54.0.33",
-    "expo-av": "~16.0.8",
     "expo-barcode-scanner": "^13.0.1",
     "expo-camera": "~17.0.10",
     "expo-clipboard": "~8.0.8",

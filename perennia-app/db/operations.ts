@@ -5,7 +5,7 @@ import {
   getTareaTipo,
   getTareaTiposPorServicio,
   type Subtarea,
-} from "../constants/tareas";
+} from "@/constants/tareas";
 
 // ── Generic CRUD ──
 

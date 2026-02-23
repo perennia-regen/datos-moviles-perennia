@@ -94,6 +94,20 @@ GPS (always + when in use), Cámara, Galería, Face ID/Biometría, Notificacione
 | `expo-cicd-workflows` | CI/CD con EAS Workflows |
 | `perennia-recorrida` | Dominio específico: recorridas, tareas, sync, GIS |
 
+## Tipos Supabase
+
+Tipos generados para schemas `public` + `datos_campo` en `perennia-app/types/database.ts`.
+
+**Regenerar después de cambios en DB:**
+```bash
+./scripts/gen-types.sh
+```
+
+El cliente tipado y los type helpers están en `lib/supabase.ts`:
+- `supabase` — cliente tipado (schema `public`)
+- `datosCampo` — cliente tipado (schema `datos_campo`)
+- `DcRecorrida`, `DcTarea`, `DcSubtarea`, `DcFoto`, etc. — Row types de datos_campo
+
 ## Verificación
 
 ```bash

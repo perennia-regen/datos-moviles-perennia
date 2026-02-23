@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { type CampoConfig } from "../../constants/tareas";
+import { type CampoConfig } from "@/constants/tareas";
 import { TagsInput } from "./TagsInput";
-import { brand, neutral } from "../../constants/theme";
+import { brand, neutral } from "@/constants/theme";
 
 interface DynamicFormProps {
   campos: CampoConfig[];

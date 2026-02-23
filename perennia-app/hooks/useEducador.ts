@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
+import { supabase } from "@/lib/supabase";
 
 export function useEducador() {
   const [educadorId, setEducadorId] = useState<number | null>(null);

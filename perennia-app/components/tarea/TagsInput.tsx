@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { brand, neutral } from "../../constants/theme";
+import { brand, neutral } from "@/constants/theme";
 
 interface TagsInputProps {
   options: readonly { value: string; label: string }[];

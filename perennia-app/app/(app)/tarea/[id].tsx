@@ -9,13 +9,13 @@ import {
   Alert,
 } from "react-native";
 import { useLocalSearchParams, useRouter, Stack } from "expo-router";
-import { getOne, updateTarea, getSubtareas, insertSubtarea, deleteSubtarea } from "../../../db/operations";
-import { getTareaTipo, type TareaTipoConfig, type Subtarea } from "../../../constants/tareas";
-import { StatusBadge } from "../../../components/recorrida/StatusBadge";
-import { DynamicForm } from "../../../components/tarea/DynamicForm";
-import { SubtareasInput } from "../../../components/tarea/SubtareasInput";
-import { useLocation } from "../../../hooks/useLocation";
-import { brand, neutral } from "../../../constants/theme";
+import { getOne, updateTarea, getSubtareas, insertSubtarea, deleteSubtarea } from "@/db/operations";
+import { getTareaTipo, type TareaTipoConfig, type Subtarea } from "@/constants/tareas";
+import { StatusBadge } from "@/components/recorrida/StatusBadge";
+import { DynamicForm } from "@/components/tarea/DynamicForm";
+import { SubtareasInput } from "@/components/tarea/SubtareasInput";
+import { useLocation } from "@/hooks/useLocation";
+import { brand, neutral } from "@/constants/theme";
 
 interface TareaRow {
   id: string;
@@ -80,7 +80,7 @@ export default function TareaScreen() {
         const amb = await getOne<AmbienteRow>("dc_ambiente", t.ambiente_id);
         if (amb) setAmbienteNombre(`${amb.nombre}${amb.has ? ` · ${amb.has} ha` : ""}`);
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error("Error loading tarea:", e);
     } finally {
       setLoading(false);
@@ -108,7 +108,7 @@ export default function TareaScreen() {
       await updateTarea(tarea.id, datos, extraFields);
       await loadData();
       Alert.alert("Guardado", "Datos guardados correctamente");
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error("Error saving tarea:", e);
       Alert.alert("Error", "No se pudieron guardar los datos");
     } finally {

@@ -10,12 +10,12 @@ import {
   Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { supabase } from "../../lib/supabase";
-import { useOfflineSync } from "../../hooks/useOfflineSync";
-import { useEducador } from "../../hooks/useEducador";
-import { getAll, bulkInsert } from "../../db/operations";
-import { getDb } from "../../db/schema";
-import { brand, neutral, semantic, components } from "../../constants/theme";
+import { supabase } from "@/lib/supabase";
+import { useOfflineSync } from "@/hooks/useOfflineSync";
+import { useEducador } from "@/hooks/useEducador";
+import { getAll, bulkInsert } from "@/db/operations";
+import { getDb } from "@/db/schema";
+import { brand, neutral, semantic, components } from "@/constants/theme";
 
 interface Servicio {
   id_servicio: string;
@@ -91,7 +91,7 @@ export default function ServiciosScreen() {
         );
       }
       await loadLocalServicios();
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error("Error fetching servicios:", e);
       // Si falla el remote, cargar desde local
       await loadLocalServicios();

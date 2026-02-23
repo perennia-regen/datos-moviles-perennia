@@ -8,16 +8,16 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { getOne, getAll } from "../../../db/operations";
+import { getOne, getAll } from "@/db/operations";
 import {
   MapView,
   Marker,
   Polyline,
   Polygon,
   PROVIDER_DEFAULT,
-} from "../../../components/map/MapComponents";
-import { useLocation } from "../../../hooks/useLocation";
-import { useHeading } from "../../../hooks/useHeading";
+} from "@/components/map/MapComponents";
+import { useLocation } from "@/hooks/useLocation";
+import { useHeading } from "@/hooks/useHeading";
 import {
   parseGeometry,
   parseGeometryMulti,
@@ -26,8 +26,8 @@ import {
   bearingTo,
   formatDistance,
   bearingToCardinal,
-} from "../../../lib/geo";
-import { brand, neutral, gis } from "../../../constants/theme";
+} from "@/lib/geo";
+import { brand, neutral, gis } from "@/constants/theme";
 
 // ── Types ──
 

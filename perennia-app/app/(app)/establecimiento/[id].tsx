@@ -9,10 +9,10 @@ import {
   Alert,
 } from "react-native";
 import { useLocalSearchParams, useRouter, Stack } from "expo-router";
-import { datosCampo, supabase } from "../../../lib/supabase";
-import { getAll, insert, downloadEstablecimientoData } from "../../../db/operations";
+import { datosCampo, supabase } from "@/lib/supabase";
+import { getAll, insert, downloadEstablecimientoData } from "@/db/operations";
 import { randomUUID as uuid } from "expo-crypto";
-import { brand, neutral, semantic, components } from "../../../constants/theme";
+import { brand, neutral, semantic, components } from "@/constants/theme";
 
 interface Lote {
   id: string;
@@ -45,7 +45,7 @@ export default function EstablecimientoScreen() {
         .select("nombre_establecimiento")
         .eq("id_establecimiento", id)
         .single();
-      if (estab) setNombre(estab.nombre_establecimiento);
+      if (estab) setNombre(estab.nombre_establecimiento ?? "");
 
       // Lotes desde SQLite local
       const localLotes = await getAll<Lote>("dc_lote", "id_establecimiento = ?", [id]);
@@ -58,7 +58,7 @@ export default function EstablecimientoScreen() {
         [id]
       );
       setRecorridas(localRecorridas);
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error("Error loading data:", e);
     } finally {
       setLoading(false);
@@ -75,9 +75,9 @@ export default function EstablecimientoScreen() {
       const result = await downloadEstablecimientoData(id, datosCampo);
       await loadData();
       Alert.alert("Listo", `${result.lotes} lotes, ${result.ambientes} ambientes, ${result.ambienteLotes} intersecciones descargados`);
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error("Download error:", e);
-      Alert.alert("Error", "No se pudieron descargar los datos: " + e.message);
+      Alert.alert("Error", "No se pudieron descargar los datos: " + (e instanceof Error ? e.message : String(e)));
     } finally {
       setDownloading(false);
     }

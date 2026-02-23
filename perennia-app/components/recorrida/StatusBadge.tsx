@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
-import { type TareaEstado } from "../../constants/tareas";
-import { semantic, neutral } from "../../constants/theme";
+import { type TareaEstado } from "@/constants/tareas";
+import { semantic, neutral } from "@/constants/theme";
 
 const STATUS_CONFIG: Record<TareaEstado, { dot: string; label: string; bg: string; text: string }> = {
   sin_iniciar: { dot: neutral.textMuted, label: "Sin iniciar", bg: "#f0f0f0", text: neutral.textSecondary },
