@@ -49,7 +49,7 @@ export function useOfflineSync() {
     if (isConnected && pendingCount > 0 && !isSyncing) {
       doSync();
     }
-  }, [isConnected]);
+  }, [isConnected, pendingCount, isSyncing, doSync]);
 
   // Retry periódico: cada 60s revisa si hay items listos para reintentar
   useEffect(() => {
@@ -73,7 +73,7 @@ export function useOfflineSync() {
         clearInterval(retryTimerRef.current);
       }
     };
-  }, [isConnected, pendingCount, isSyncing]);
+  }, [isConnected, pendingCount, isSyncing, doSync]);
 
   // Contar pendientes al montar
   useEffect(() => {

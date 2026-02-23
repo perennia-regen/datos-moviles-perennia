@@ -3,7 +3,7 @@ import * as SecureStore from "expo-secure-store";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database";
 
-const SUPABASE_URL = "https://fkrppgqtlgoxnonohenu.supabase.co";
+const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL ?? "";
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
 const secureStorage = {

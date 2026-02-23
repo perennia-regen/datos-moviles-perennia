@@ -1,12 +1,26 @@
 {
   "name": "perennia-app",
   "version": "1.0.0",
-  "main": "expo-router/entry",
+  "main": "index.ts",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "start:clear": "expo start -c",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "prepare": "cd .. && husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "jest --findRelatedTests --bail --passWithNoTests"
+    ]
   },
   "dependencies": {
     "@react-native-community/netinfo": "11.4.1",
@@ -14,7 +28,6 @@
     "@turf/boolean-point-in-polygon": "^7.3.4",
     "@turf/helpers": "^7.3.4",
     "expo": "~54.0.33",
-    "expo-barcode-scanner": "^13.0.1",
     "expo-camera": "~17.0.10",
     "expo-clipboard": "~8.0.8",
     "expo-constants": "~18.0.13",
@@ -46,7 +59,14 @@
     "react-native-web": "^0.21.0"
   },
   "devDependencies": {
+    "@testing-library/react-native": "^13.3.3",
+    "@types/jest": "^30.0.0",
     "@types/react": "~19.1.0",
+    "eslint": "^9.39.3",
+    "eslint-config-expo": "^10.0.0",
+    "husky": "^9.1.7",
+    "jest-expo": "^54.0.17",
+    "lint-staged": "^16.2.7",
     "typescript": "~5.9.2"
   },
   "private": true
