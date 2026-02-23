@@ -10,20 +10,22 @@ import {
   KeyboardAvoidingView,
   Image,
 } from "react-native";
+import { useForm, Controller } from "react-hook-form";
 import { supabase } from "@/lib/supabase";
 import { brand, neutral, components } from "@/constants/theme";
 
+interface LoginForm {
+  email: string;
+  password: string;
+}
+
 export default function LoginScreen() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { control, handleSubmit } = useForm<LoginForm>({
+    defaultValues: { email: "", password: "" },
+  });
 
-  async function handleLogin() {
-    if (!email || !password) {
-      Alert.alert("Error", "Ingresá email y contraseña");
-      return;
-    }
-
+  async function onSubmit({ email, password }: LoginForm) {
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
@@ -46,28 +48,48 @@ export default function LoginScreen() {
         />
         <Text style={styles.subtitle}>Recorrida Holística</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          placeholderTextColor={neutral.textPlaceholder}
+        <Controller
+          control={control}
+          name="email"
+          rules={{ required: "Ingresá tu email" }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <>
+              <TextInput
+                style={[styles.input, error && styles.inputError]}
+                placeholder="Email"
+                value={value}
+                onChangeText={onChange}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                placeholderTextColor={neutral.textPlaceholder}
+              />
+              {error && <Text style={styles.errorText}>{error.message}</Text>}
+            </>
+          )}
         />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          placeholderTextColor={neutral.textPlaceholder}
+        <Controller
+          control={control}
+          name="password"
+          rules={{ required: "Ingresá tu contraseña" }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <>
+              <TextInput
+                style={[styles.input, error && styles.inputError]}
+                placeholder="Contraseña"
+                value={value}
+                onChangeText={onChange}
+                secureTextEntry
+                placeholderTextColor={neutral.textPlaceholder}
+              />
+              {error && <Text style={styles.errorText}>{error.message}</Text>}
+            </>
+          )}
         />
 
         <TouchableOpacity
           style={[styles.button, loading && styles.buttonDisabled]}
-          onPress={handleLogin}
+          onPress={handleSubmit(onSubmit)}
           disabled={loading}
         >
           {loading ? (
@@ -113,6 +135,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: neutral.border,
     color: brand.text,
+  },
+  inputError: {
+    borderColor: "#c62828",
+  },
+  errorText: {
+    color: "#c62828",
+    fontSize: 12,
+    marginTop: -8,
+    marginBottom: 8,
+    marginLeft: 4,
   },
   button: {
     backgroundColor: components.buttonPrimary.background,

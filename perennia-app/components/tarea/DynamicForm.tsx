@@ -6,17 +6,17 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { Controller, type Control } from "react-hook-form";
 import { type CampoConfig } from "@/constants/tareas";
 import { TagsInput } from "./TagsInput";
 import { brand, neutral } from "@/constants/theme";
 
 interface DynamicFormProps {
   campos: CampoConfig[];
-  datos: Record<string, any>;
-  onChange: (key: string, value: any) => void;
+  control: Control<any>;
 }
 
-export function DynamicForm({ campos, datos, onChange }: DynamicFormProps) {
+export function DynamicForm({ campos, control }: DynamicFormProps) {
   return (
     <View style={styles.container}>
       {campos.map((campo) => (
@@ -25,7 +25,17 @@ export function DynamicForm({ campos, datos, onChange }: DynamicFormProps) {
             {campo.label}
             {campo.required !== false && <Text style={styles.required}> *</Text>}
           </Text>
-          <FieldRenderer campo={campo} value={datos[campo.key]} onChange={(v) => onChange(campo.key, v)} />
+          <Controller
+            control={control}
+            name={`datos.${campo.key}`}
+            rules={campo.required !== false ? { required: `${campo.label} es requerido` } : undefined}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <FieldRenderer campo={campo} value={value} onChange={onChange} />
+                {error && <Text style={styles.errorText}>{error.message}</Text>}
+              </>
+            )}
+          />
         </View>
       ))}
     </View>
@@ -91,7 +101,6 @@ function FieldRenderer({
           options={campo.options ?? []}
           selected={value ?? ""}
           onSelect={onChange}
-          multi={false}
         />
       );
 
@@ -121,9 +130,7 @@ function DateField({ value, onChange }: { value: string | null; onChange: (v: st
   const [text, setText] = useState(value ?? "");
 
   const handleChange = (t: string) => {
-    // Auto-format: agregar guiones dd-mm-yyyy → yyyy-mm-dd
     setText(t);
-    // Aceptar formatos YYYY-MM-DD
     if (/^\d{4}-\d{2}-\d{2}$/.test(t)) {
       onChange(t);
     }
@@ -146,12 +153,10 @@ function ChipsSelector({
   options,
   selected,
   onSelect,
-  multi,
 }: {
   options: readonly { value: string; label: string }[];
   selected: string;
   onSelect: (v: string) => void;
-  multi: boolean;
 }) {
   return (
     <View style={styles.chipsRow}>
@@ -182,6 +187,11 @@ const styles = StyleSheet.create({
     color: brand.text,
   },
   required: { color: "#c62828" },
+  errorText: {
+    color: "#c62828",
+    fontSize: 12,
+    marginTop: 2,
+  },
   input: {
     borderWidth: 1,
     borderColor: neutral.border,

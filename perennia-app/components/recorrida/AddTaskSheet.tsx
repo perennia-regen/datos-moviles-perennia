@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { useForm } from "react-hook-form";
 import type { TareaTipoConfig } from "@/constants/tareas";
 import { brand, neutral } from "@/constants/theme";
 
@@ -34,26 +35,33 @@ interface AddTaskSheetProps {
 
 type Step = "tipo" | "lote" | "ambiente";
 
+interface WizardFormValues {
+  tipoId: string | null;
+  loteId: string | null;
+  ambienteId: string | null;
+}
+
 export function AddTaskSheet({ visible, onClose, onAdd, tareaTipos, lotes, ambientes }: AddTaskSheetProps) {
   const [step, setStep] = useState<Step>("tipo");
-  const [selectedTipo, setSelectedTipo] = useState<TareaTipoConfig | null>(null);
-  const [selectedLoteId, setSelectedLoteId] = useState<string | null>(null);
 
-  const reset = () => {
-    setStep("tipo");
-    setSelectedTipo(null);
-    setSelectedLoteId(null);
-  };
+  const { setValue, getValues, reset } = useForm<WizardFormValues>({
+    defaultValues: { tipoId: null, loteId: null, ambienteId: null },
+  });
 
   const handleClose = () => {
+    setStep("tipo");
     reset();
     onClose();
   };
 
+  const getSelectedTipo = (): TareaTipoConfig | undefined => {
+    const tipoId = getValues("tipoId");
+    return tareaTipos.find((t) => t.id === tipoId);
+  };
+
   const handleSelectTipo = (tipo: TareaTipoConfig) => {
-    setSelectedTipo(tipo);
+    setValue("tipoId", tipo.id);
     if (tipo.nivel === "libre") {
-      // Tarea libre: no requiere lote ni ambiente
       onAdd(tipo.id, null, null);
       handleClose();
     } else {
@@ -62,28 +70,31 @@ export function AddTaskSheet({ visible, onClose, onAdd, tareaTipos, lotes, ambie
   };
 
   const handleSelectLote = (loteId: string) => {
-    setSelectedLoteId(loteId);
-    if (selectedTipo?.nivel === "ambiente") {
+    setValue("loteId", loteId);
+    const tipo = getSelectedTipo();
+    if (tipo?.nivel === "ambiente") {
       const loteAmbientes = ambientes.filter((a) => a.lote_id === loteId);
       if (loteAmbientes.length > 0) {
         setStep("ambiente");
       } else {
-        // Sin ambientes: crear a nivel lote
-        onAdd(selectedTipo!.id, loteId, null);
+        onAdd(tipo.id, loteId, null);
         handleClose();
       }
     } else {
-      // Tarea nivel lote
-      onAdd(selectedTipo!.id, loteId, null);
+      onAdd(tipo!.id, loteId, null);
       handleClose();
     }
   };
 
   const handleSelectAmbiente = (ambienteId: string) => {
-    onAdd(selectedTipo!.id, selectedLoteId, ambienteId);
+    setValue("ambienteId", ambienteId);
+    const { tipoId, loteId } = getValues();
+    onAdd(tipoId!, loteId, ambienteId);
     handleClose();
   };
 
+  const selectedTipo = getSelectedTipo();
+  const selectedLoteId = getValues("loteId");
   const filteredAmbientes = selectedLoteId
     ? ambientes.filter((a) => a.lote_id === selectedLoteId)
     : [];

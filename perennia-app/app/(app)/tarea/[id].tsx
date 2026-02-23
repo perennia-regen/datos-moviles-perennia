@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { useLocalSearchParams, useRouter, Stack } from "expo-router";
+import { useLocalSearchParams, Stack } from "expo-router";
+import { useForm } from "react-hook-form";
 import { getOne, updateTarea, getSubtareas, insertSubtarea, deleteSubtarea } from "@/db/operations";
 import { getTareaTipo, type TareaTipoConfig, type Subtarea } from "@/constants/tareas";
 import { StatusBadge } from "@/components/recorrida/StatusBadge";
@@ -43,26 +44,34 @@ interface AmbienteRow {
   has: number | null;
 }
 
+interface TareaFormValues {
+  datos: Record<string, any>;
+}
+
 export default function TareaScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const { location } = useLocation();
 
   const [tarea, setTarea] = useState<TareaRow | null>(null);
   const [tipoConfig, setTipoConfig] = useState<TareaTipoConfig | null>(null);
-  const [datos, setDatos] = useState<Record<string, any>>({});
   const [subtareas, setSubtareas] = useState<Subtarea[]>([]);
   const [loteNombre, setLoteNombre] = useState("");
   const [ambienteNombre, setAmbienteNombre] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
+  const { control, handleSubmit, reset } = useForm<TareaFormValues>({
+    defaultValues: { datos: {} },
+  });
+
   const loadData = useCallback(async () => {
     try {
       const t = await getOne<TareaRow>("dc_tarea", id);
       if (!t) return;
       setTarea(t);
-      setDatos(JSON.parse(t.datos || "{}"));
+
+      const parsedDatos = JSON.parse(t.datos || "{}");
+      reset({ datos: parsedDatos });
 
       const tipo = await getTareaTipo(t.tarea_tipo_id, t.form_version);
       setTipoConfig(tipo);
@@ -85,17 +94,13 @@ export default function TareaScreen() {
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [id, reset]);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
 
-  const handleFieldChange = (key: string, value: any) => {
-    setDatos((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleSave = async () => {
+  const onSave = async ({ datos }: TareaFormValues) => {
     if (!tarea) return;
     setSaving(true);
     try {
@@ -173,8 +178,7 @@ export default function TareaScreen() {
         <View style={styles.section}>
           <DynamicForm
             campos={formCampos}
-            datos={datos}
-            onChange={handleFieldChange}
+            control={control}
           />
         </View>
 
@@ -195,7 +199,7 @@ export default function TareaScreen() {
 
         <TouchableOpacity
           style={[styles.saveBtn, saving && styles.saveBtnDisabled]}
-          onPress={handleSave}
+          onPress={handleSubmit(onSave)}
           disabled={saving}
         >
           {saving ? (
