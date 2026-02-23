@@ -1,0 +1,20 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Claude Code
+.claude/
+
+# MCP config (tiene secrets)
+.mcp.json
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+
+# GIS binary assets (too large for git)
+/assets/
+/Assets/

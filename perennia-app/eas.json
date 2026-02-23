@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 12.0.0"
+  },
+  "build": {
+    "preview": {
+      "channel": "preview",
+      "ios": {
+        "simulator": false
+      }
+    },
+    "production": {
+      "channel": "production"
+    }
+  },
+  "submit": {
+    "preview": {
+      "android": {
+        "track": "internal"
+      }
+    },
+    "production": {
+      "android": {
+        "track": "production"
+      }
+    }
+  }
+}
