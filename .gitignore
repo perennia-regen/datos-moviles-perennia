@@ -18,3 +18,6 @@ node_modules/
 # GIS binary assets (too large for git)
 /assets/
 /Assets/
+
+# Supabase migrations live in BackOffice repo
+/supabase/
