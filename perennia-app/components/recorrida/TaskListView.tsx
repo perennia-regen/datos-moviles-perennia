@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 6,
     borderRadius: 8,
+    borderCurve: "continuous",
     padding: 12,
   },
   tareaInfo: {
@@ -224,6 +225,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     backgroundColor: neutral.surface,
     borderRadius: 8,
+    borderCurve: "continuous",
     overflow: "hidden",
   },
   loteHeader: {

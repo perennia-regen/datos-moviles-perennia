@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
-  Platform,
   Image,
 } from "react-native";
 import { supabase } from "../../lib/supabase";
@@ -37,7 +36,7 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={process.env.EXPO_OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.form}>
         <Image
@@ -106,6 +105,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: neutral.surface,
     borderRadius: components.input.radius,
+    borderCurve: "continuous",
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: components.buttonPrimary.background,
     borderRadius: 8,
+    borderCurve: "continuous",
     paddingVertical: 14,
     alignItems: "center",
     marginTop: 8,

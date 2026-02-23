@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     right: 12,
     backgroundColor: "rgba(0,0,0,0.7)",
     borderRadius: 8,
+    borderCurve: "continuous",
     paddingVertical: 4,
     paddingHorizontal: 8,
     zIndex: 10,

@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   FlatList,
   Alert,
-  Platform,
 } from "react-native";
 import { useLocalSearchParams, useRouter, Stack } from "expo-router";
 import { datosCampo } from "../../../lib/supabase";
@@ -207,6 +206,7 @@ export default function ServicioDetalleScreen() {
       <FlatList
         data={recorridas}
         keyExtractor={(item) => item.id}
+        contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={styles.listContent}
         ListHeaderComponent={
           <>
@@ -242,7 +242,7 @@ export default function ServicioDetalleScreen() {
             </View>
 
             {/* Mini-mapa */}
-            {hasLotes && center && Platform.OS !== "web" && MapView ? (
+            {hasLotes && center && process.env.EXPO_OS !== "web" && MapView ? (
               <View style={styles.mapContainer}>
                 <MapView
                   style={styles.map}
@@ -259,7 +259,7 @@ export default function ServicioDetalleScreen() {
                   pitchEnabled={false}
                   toolbarEnabled={false}
                   showsUserLocation={false}
-                  liteMode={Platform.OS === "android"}
+                  liteMode={process.env.EXPO_OS === "android"}
                 >
                   {lotes.map((lote, i) => {
                     const coords = parseGeometry(lote.geometry);
@@ -396,6 +396,7 @@ const styles = StyleSheet.create({
     height: 200,
     margin: 16,
     borderRadius: 12,
+    borderCurve: "continuous",
     overflow: "hidden",
   },
   map: { flex: 1 },
@@ -413,6 +414,7 @@ const styles = StyleSheet.create({
     height: 120,
     margin: 16,
     borderRadius: 12,
+    borderCurve: "continuous",
     backgroundColor: "#e8e8e0",
     justifyContent: "center",
     alignItems: "center",
@@ -429,6 +431,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: components.buttonSecondary.background,
     borderRadius: 8,
+    borderCurve: "continuous",
     paddingVertical: 12,
     alignItems: "center",
   },
@@ -448,6 +451,7 @@ const styles = StyleSheet.create({
   recorridaCard: {
     backgroundColor: neutral.surface,
     borderRadius: 8,
+    borderCurve: "continuous",
     padding: 14,
     marginBottom: 8,
     marginHorizontal: 16,

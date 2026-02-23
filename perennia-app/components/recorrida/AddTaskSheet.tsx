@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     marginVertical: 3,
     backgroundColor: neutral.surface,
     borderRadius: 8,
+    borderCurve: "continuous",
   },
   optionText: { fontSize: 15, fontWeight: "500", color: brand.text },
   optionLevel: { fontSize: 12, color: neutral.textMuted },

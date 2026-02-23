@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: components.buttonSecondary.background,
     borderRadius: 8,
+    borderCurve: "continuous",
     paddingVertical: 12,
     alignItems: "center",
   },
@@ -190,6 +191,7 @@ const styles = StyleSheet.create({
   recorridaCard: {
     backgroundColor: neutral.surface,
     borderRadius: 8,
+    borderCurve: "continuous",
     padding: 14,
     marginBottom: 8,
     flexDirection: "row",

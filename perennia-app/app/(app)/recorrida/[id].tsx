@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  Platform,
 } from "react-native";
 import { useLocalSearchParams, useRouter, Stack, useFocusEffect } from "expo-router";
 import { getAll, getOne, update, insert, getTareasParaRecorrida } from "../../../db/operations";
@@ -265,7 +264,7 @@ export default function RecorridaScreen() {
       ) : (
         /* Tab Mapa */
         <View style={styles.mapContainer}>
-          {Platform.OS === "web" || !MapView ? (
+          {process.env.EXPO_OS === "web" || !MapView ? (
             <View style={[styles.map, { justifyContent: "center", alignItems: "center", backgroundColor: "#222" }]}>
               <Text style={{ color: brand.white, fontSize: 16 }}>Mapa no disponible en web</Text>
             </View>
@@ -470,6 +469,7 @@ const styles = StyleSheet.create({
   addBtn: {
     backgroundColor: brand.primary,
     borderRadius: 6,
+    borderCurve: "continuous",
     paddingHorizontal: 14,
     paddingVertical: 7,
   },
@@ -484,6 +484,7 @@ const styles = StyleSheet.create({
   finishBtn: {
     backgroundColor: components.buttonDanger.background,
     borderRadius: 10,
+    borderCurve: "continuous",
     paddingVertical: 14,
     alignItems: "center",
   },
@@ -521,11 +522,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 4,
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.25)",
   },
   myLocationIcon: { fontSize: 20 },
 });

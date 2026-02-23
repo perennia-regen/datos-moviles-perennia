@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Platform,
 } from "react-native";
 import { type CampoConfig } from "../../constants/tareas";
 import { TagsInput } from "./TagsInput";
@@ -137,7 +136,7 @@ function DateField({ value, onChange }: { value: string | null; onChange: (v: st
       onChangeText={handleChange}
       placeholder="YYYY-MM-DD"
       placeholderTextColor={neutral.inputPlaceholder}
-      keyboardType={Platform.OS === "ios" ? "numbers-and-punctuation" : "default"}
+      keyboardType={process.env.EXPO_OS === "ios" ? "numbers-and-punctuation" : "default"}
       maxLength={10}
     />
   );
@@ -187,6 +186,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: neutral.border,
     borderRadius: 8,
+    borderCurve: "continuous",
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 15,

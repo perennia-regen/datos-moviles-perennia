@@ -75,6 +75,7 @@ export default function EstablecimientosScreen() {
       <FlatList
         data={establecimientos}
         keyExtractor={(item) => item.id_establecimiento}
+        contentInsetAdjustmentBehavior="automatic"
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={brand.primary} />
         }
@@ -120,13 +121,10 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: neutral.surface,
     borderRadius: components.card.radius,
+    borderCurve: "continuous",
     padding: 16,
     marginBottom: 10,
-    shadowColor: components.card.shadow.color,
-    shadowOffset: { width: 0, height: components.card.shadow.offsetY },
-    shadowOpacity: components.card.shadow.opacity,
-    shadowRadius: components.card.shadow.radius,
-    elevation: components.card.shadow.elevation,
+    boxShadow: components.card.boxShadow,
   },
   cardTitle: {
     fontSize: 17,

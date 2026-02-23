@@ -121,7 +121,7 @@ export const components = {
   card: {
     background: neutral.surface,
     radius: 10,
-    shadow: { color: "#000", opacity: 0.05, offsetY: 1, radius: 4, elevation: 2 },
+    boxShadow: "0 1px 4px rgba(0, 0, 0, 0.05)",
   },
   /** Badge — default (scheduled/success) */
   badge: {

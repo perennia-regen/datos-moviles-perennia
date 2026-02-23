@@ -117,7 +117,7 @@ export default function SyncScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentInsetAdjustmentBehavior="automatic">
       {/* Estado general */}
       <View style={styles.card}>
         <Text style={styles.title}>Estado de Sincronizacion</Text>
@@ -247,6 +247,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: neutral.surface,
     borderRadius: components.card.radius,
+    borderCurve: "continuous",
     padding: 16,
     marginBottom: 16,
   },
@@ -272,6 +273,7 @@ const styles = StyleSheet.create({
   resultBox: {
     backgroundColor: neutral.background,
     borderRadius: 6,
+    borderCurve: "continuous",
     padding: 10,
     marginTop: 12,
   },
@@ -292,6 +294,7 @@ const styles = StyleSheet.create({
   estabBtn: {
     backgroundColor: components.buttonPrimary.background,
     borderRadius: 6,
+    borderCurve: "continuous",
     paddingHorizontal: 16,
     paddingVertical: 8,
     minWidth: 70,
@@ -307,6 +310,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: neutral.background,
     borderRadius: 6,
+    borderCurve: "continuous",
     paddingVertical: 10,
     alignItems: "center",
   },
@@ -318,6 +322,7 @@ const styles = StyleSheet.create({
   syncBtn: {
     backgroundColor: components.buttonPrimary.background,
     borderRadius: 10,
+    borderCurve: "continuous",
     paddingVertical: 16,
     alignItems: "center",
     marginBottom: 32,
@@ -330,6 +335,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: semantic.destructiveBorder,
     borderRadius: 10,
+    borderCurve: "continuous",
     paddingVertical: 14,
     alignItems: "center",
     marginBottom: 32,

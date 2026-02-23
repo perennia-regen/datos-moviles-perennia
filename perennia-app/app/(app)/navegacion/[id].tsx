@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Platform,
   StatusBar,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -411,6 +410,7 @@ const styles = StyleSheet.create({
   ctaBtn: {
     backgroundColor: brand.primary,
     borderRadius: 12,
+    borderCurve: "continuous",
     paddingVertical: 14,
     alignItems: "center",
     marginBottom: 4,

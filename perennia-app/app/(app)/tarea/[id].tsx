@@ -156,7 +156,7 @@ export default function TareaScreen() {
     <View style={styles.container}>
       <Stack.Screen options={{ title: tipoConfig.nombre }} />
 
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView contentContainerStyle={styles.scrollContent} contentInsetAdjustmentBehavior="automatic">
         <View style={styles.header}>
           <View style={styles.headerTop}>
             <Text style={styles.headerTitle}>{tipoConfig.nombre}</Text>
@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: neutral.surface,
     padding: 14,
     borderRadius: 10,
+    borderCurve: "continuous",
     marginBottom: 16,
   },
   headerTop: {
@@ -236,6 +237,7 @@ const styles = StyleSheet.create({
     backgroundColor: neutral.surface,
     padding: 14,
     borderRadius: 10,
+    borderCurve: "continuous",
     marginBottom: 16,
   },
   sectionTitle: {
@@ -247,6 +249,7 @@ const styles = StyleSheet.create({
   saveBtn: {
     backgroundColor: brand.primary,
     borderRadius: 10,
+    borderCurve: "continuous",
     paddingVertical: 14,
     alignItems: "center",
     marginTop: 8,
