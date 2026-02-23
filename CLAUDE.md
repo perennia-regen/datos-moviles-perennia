@@ -23,12 +23,9 @@ perennia-app/
 │       ├── tarea/[id].tsx
 │       └── navegacion/[id].tsx
 ├── components/             # Componentes por dominio
-│   ├── ui/                 # Componentes genéricos
 │   ├── map/                # Mapa y capas GIS
-│   ├── forms/              # Formularios dinámicos
 │   ├── recorrida/          # Componentes de recorrida
-│   ├── tarea/              # Componentes de tarea
-│   └── sync/               # UI de sincronización
+│   └── tarea/              # Componentes de tarea
 ├── hooks/                  # Hooks custom
 │   ├── useEducador.ts      # Auth/sesión del educador
 │   ├── useLocation.ts      # GPS tracking
@@ -74,10 +71,34 @@ perennia-app/
 - Siempre usar `_layout.tsx` para definir stacks
 - `useLocalSearchParams` para params
 
+### Formularios
+- **react-hook-form** es el default para todos los formularios (excepto inputs triviales como un solo campo de búsqueda)
+- Patrón: `useForm` en el screen, `Controller` en componentes, `useFieldArray` para listas dinámicas
+- Loading/saving states se quedan como `useState` (no son form data)
+- Wizard/stepper: `step` como `useState`, selecciones con `setValue` de RHF, validación por paso con `trigger`
+
 ### Formularios dinámicos
 - Los tipos de tarea (`dc_tarea_tipo`) definen el schema del formulario via `campos` JSON
 - Tipos soportados: `text`, `textarea`, `numeric`, `date`, `chips`, `chips_multi`, `fotos`
 - Los datos se guardan en `dc_tarea.datos` como JSON flexible
+- `DynamicForm` recibe `control` de RHF y usa `Controller` por campo con name `datos.{key}`
+
+### Testing
+- Al implementar/modificar una función, agregar o actualizar sus tests
+- Al fixear un bug, agregar un test de regresión primero (red → green)
+- Ubicación: `__tests__/` colocados junto al módulo (ej: `lib/__tests__/geo.test.ts`)
+- Naming: `<module>.test.ts` matching el archivo fuente
+- Funciones puras: testar directo, sin mocks
+- Funciones con DB: mock `@/db/schema` y `expo-sqlite` (ver `jest-setup.ts`)
+- Funciones con Supabase: mock `@/lib/supabase` inline en el test
+- Correr `npm test` antes de dar por terminado el trabajo
+
+### Documentación
+- Mantener `docs/` para documentación del proyecto
+- `docs/schema.md`: referencia del schema SQLite
+- Al agregar hook/util/componente nuevo, incluir JSDoc con `@param`, `@returns`, `@example`
+- Al tomar decisiones arquitectónicas, documentar en `docs/`
+- Mantener la sección `## Estructura del proyecto` en CLAUDE.md actualizada
 
 ## Permisos nativos requeridos
 
@@ -111,7 +132,9 @@ El cliente tipado y los type helpers están en `lib/supabase.ts`:
 ## Verificación
 
 ```bash
+cd perennia-app && npm test             # Tests (Jest)
 cd perennia-app && npx tsc --noEmit     # Typecheck
+cd perennia-app && npm run lint         # ESLint
 cd perennia-app && npx expo start       # Dev server (Expo Go primero)
 ```
 
