@@ -94,10 +94,7 @@
       ],
       "expo-barcode-scanner",
       "expo-sensors",
-      "expo-av",
-      "expo-haptics",
-      "expo-clipboard",
-      "expo-image-manipulator"
+      "expo-av"
     ],
     "scheme": "perennia",
     "extra": {
