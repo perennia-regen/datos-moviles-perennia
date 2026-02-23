@@ -10,11 +10,10 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter, Stack } from "expo-router";
 import { datosCampo } from "@/lib/supabase";
-import { getAll, downloadEstablecimientoData } from "@/db/operations";
+import { getAll, downloadEstablecimientoData , insert, crearTareasParaRecorrida } from "@/db/operations";
 import { getDb } from "@/db/schema";
 import { useEducador } from "@/hooks/useEducador";
 import { randomUUID as uuid } from "expo-crypto";
-import { insert, crearTareasParaRecorrida } from "@/db/operations";
 import { generarNombreRecorrida } from "@/constants/tareas";
 import { MapView, Polygon, PROVIDER_DEFAULT } from "@/components/map/MapComponents";
 import { parseGeometry, getCentroid } from "@/lib/geo";

@@ -7,7 +7,6 @@ import {
   StyleSheet,
   ActivityIndicator,
   RefreshControl,
-  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { supabase } from "@/lib/supabase";
@@ -115,6 +114,7 @@ export default function ServiciosScreen() {
         await fetchServiciosRemote();
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Intencionalmente solo al mount/cambio de educador. Agregar las 3 deps causa loop infinito.
   }, [educadorId, educadorLoading]);
 
   const onRefresh = useCallback(async () => {

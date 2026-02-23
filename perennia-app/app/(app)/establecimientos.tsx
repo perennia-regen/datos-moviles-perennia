@@ -12,7 +12,7 @@ import {
 import { useRouter } from "expo-router";
 import { supabase } from "@/lib/supabase";
 import { useEducador } from "@/hooks/useEducador";
-import { brand, neutral, semantic, components } from "@/constants/theme";
+import { brand, neutral, components } from "@/constants/theme";
 
 interface Establecimiento {
   id_establecimiento: string;

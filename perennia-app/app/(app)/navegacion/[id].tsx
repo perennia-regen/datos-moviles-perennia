@@ -27,7 +27,7 @@ import {
   formatDistance,
   bearingToCardinal,
 } from "@/lib/geo";
-import { brand, neutral, gis } from "@/constants/theme";
+import { brand, gis } from "@/constants/theme";
 
 // ── Types ──
 

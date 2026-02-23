@@ -1,4 +1,4 @@
-import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import { booleanPointInPolygon } from "@turf/boolean-point-in-polygon";
 import { point, polygon } from "@turf/helpers";
 
 // ── Types ──

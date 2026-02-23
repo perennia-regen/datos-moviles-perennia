@@ -1,6 +1,6 @@
 import { datosCampo } from "@/lib/supabase";
 import type { Database } from "@/types/database";
-import { getPendingSyncItems, markSynced, markSyncFailed, update, SyncErrorType } from "./operations";
+import { getPendingSyncItems, markSynced, markSyncFailed, SyncErrorType } from "./operations";
 
 type DcTableName = keyof Database["datos_campo"]["Tables"];
 
@@ -12,7 +12,7 @@ const TABLE_MAP: Record<string, DcTableName> = {
   dc_foto: "dc_foto",
 };
 
-function classifyError(error: unknown): { type: SyncErrorType; message: string } {
+export function classifyError(error: unknown): { type: SyncErrorType; message: string } {
   const err = error as Record<string, unknown>;
   const msg = (err?.message as string) ?? String(error);
   const code = (err?.code as string) ?? "";

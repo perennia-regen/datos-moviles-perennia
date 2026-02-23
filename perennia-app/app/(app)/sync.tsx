@@ -8,7 +8,6 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import { useRouter } from "expo-router";
 import { useOfflineSync } from "@/hooks/useOfflineSync";
 import { getDeadItems, retryDeadItems, discardDeadItems } from "@/db/operations";
 import { supabase } from "@/lib/supabase";
@@ -17,7 +16,6 @@ import { resetDb } from "@/db/schema";
 import { brand, neutral, semantic, components } from "@/constants/theme";
 
 export default function SyncScreen() {
-  const router = useRouter();
   const { pendingCount, pendingByEstab, isSyncing, isConnected, doSync, refreshCount } =
     useOfflineSync();
   const [lastResult, setLastResult] = useState<SyncResult | null>(null);

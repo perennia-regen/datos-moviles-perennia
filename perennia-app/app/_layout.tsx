@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Stack } from "expo-router";
+import { Stack , useRouter, useSegments } from "expo-router";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
-import { useRouter, useSegments } from "expo-router";
 
 export default function RootLayout() {
   const [session, setSession] = useState<Session | null>(null);
@@ -33,7 +32,7 @@ export default function RootLayout() {
     } else if (session && inAuthGroup) {
       router.replace("/(app)");
     }
-  }, [session, segments, loading]);
+  }, [session, segments, loading, router]);
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
